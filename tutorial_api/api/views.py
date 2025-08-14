@@ -11,7 +11,7 @@ from rest_framework.permissions import (
     AllowAny
 )
 from rest_framework.views import APIView
-from api.filters import ProductFilter
+from api.filters import ProductFilter, InStockFilterBackend
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -23,6 +23,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
         DjangoFilterBackend,
         filters.SearchFilter,
         filters.OrderingFilter,
+        InStockFilterBackend,
     ]
     search_fields = ['name', 'description']
     ordering_fields = ['name', 'price', 'stock']
@@ -45,9 +46,11 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
 
+
 class OrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('items__product')
     serializer_class = OrderSerializer
+
 
 class UserOrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('items__product')
@@ -59,6 +62,7 @@ class UserOrderListAPIView(generics.ListAPIView):
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(user=self.request.user)
+
     
 class ProductInfoAPIView(APIView):
     def get(self, request):
