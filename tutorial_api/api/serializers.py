@@ -19,6 +19,7 @@ class ProductSerializer(serializers.ModelSerializer):
         return value
     
 class OrderItemSerializer(serializers.ModelSerializer):
+    order_id = serializers.UUIDField(read_only=True)
     product_name = serializers.CharField(source='product.name')
     product_price = serializers.DecimalField(
         source='product.price',
@@ -29,6 +30,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = (
+            'order_id',
             'product_name',
             'product_price',
             'quantity',
