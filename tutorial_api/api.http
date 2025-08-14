@@ -23,5 +23,9 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/user-orders/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1MTQzNjc1LCJpYXQiOjE3NTUxNDMzNzUsImp0aSI6ImViZjA5N2UxNmE3ZTQ0MTg4N2NkODkwNDgwMWM1Mjg1IiwidXNlcl9pZCI6IjEifQ.-4I_UsqQf-uEEgEPNWdtw6z9st5G_O5s253PkpZIqWk
+POST http://localhost:8000/api/token/refresh/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NTI4MjI3NywiaWF0IjoxNzU1MTk1ODc3LCJqdGkiOiI4OTVmZDZlZWFmNDg0NTFkODU4YzhiMWE4OTUyNDVjZiIsInVzZXJfaWQiOiIxIn0.OzVCAn8Kxed4KdsITkLkUX1gcoE4cAaVtBHa3r5lygE"
+}
